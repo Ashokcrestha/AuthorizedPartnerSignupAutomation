@@ -35,6 +35,72 @@ try:
 except Exception as e:
     print("Error clicking Signup:", e)
 
+    # ---------------- CONFIRM REGISTER PAGE ----------------
+WebDriverWait(driver, 20).until(
+    EC.url_contains("/register")
+)
 
+# FORCE slow down AFTER navigation
 time.sleep(5)
+
+print("Register page fully opened")
+
+# ---------------- REGISTER PAGE AUTOMATION ----------------
+
+# Make sure Register page is fully loaded
+WebDriverWait(driver, 20).until(
+    EC.presence_of_element_located(
+        (By.XPATH, "//*[contains(text(),'Register Your Agency')]")
+    )
+)
+
+# Slow down so page is clearly visible
+time.sleep(4)
+# ---------- CLICK TERMS & CONDITIONS (FIXED) ----------
+
+try:
+    # Wait until the text is visible
+    agree_label = WebDriverWait(driver, 20).until(
+        EC.element_to_be_clickable((
+            By.XPATH,
+            "//label[contains(.,'I agree to the')]"
+        ))
+    )
+
+    driver.execute_script(
+        "arguments[0].scrollIntoView({behavior:'smooth', block:'center'});",
+        agree_label
+    )
+    time.sleep(2)
+
+    # Click the LABEL (not the input)
+    driver.execute_script("arguments[0].click();", agree_label)
+    print("✅ Terms & Conditions checkbox clicked")
+
+except Exception as e:
+    print("❌ Checkbox click failed:", e)
+time.sleep(2)
+
+# -------- Click Continue button --------
+try:
+    continue_button = WebDriverWait(driver, 20).until(
+        EC.element_to_be_clickable(
+            (By.XPATH, "//button[contains(text(),'Continue')]")
+        )
+    )
+
+    driver.execute_script(
+        "arguments[0].scrollIntoView({behavior:'smooth', block:'center'});",
+        continue_button
+    )
+    time.sleep(2)
+
+    driver.execute_script("arguments[0].click();", continue_button)
+    print("Continue button clicked.")
+
+except Exception as e:
+    print("Error clicking Continue:", e)
+
+# Final slow wait so you can see next page
+time.sleep(6)
 driver.quit()
