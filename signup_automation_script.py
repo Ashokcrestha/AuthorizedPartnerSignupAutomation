@@ -54,7 +54,7 @@ WebDriverWait(driver, 20).until(
 
 # Slow down so page is clearly visible
 time.sleep(4)
-# ---------- CLICK TERMS & CONDITIONS (FIXED) ----------
+# ---------- CLICK TERMS & CONDITIONS ----------
 
 try:
     # Wait until the text is visible
@@ -108,7 +108,7 @@ WebDriverWait(driver, 20).until(
     )
 )
 
-time.sleep(3)  # visible pause
+time.sleep(3)  
 
 # ---- First Name ----
 first_name = WebDriverWait(driver, 20).until(
@@ -130,10 +130,10 @@ time.sleep(1)
 email = driver.find_element(
     By.XPATH, "//input[@placeholder='Enter Your Email Address']"
 )
-email.send_keys("ashok.test@gmail.com")
+email.send_keys("ashok.test45@gmail.com")
 time.sleep(1)
 
-# ---- Phone Number (REACT-SAFE FIX) ----
+# ---- Phone Number  ----
 
 # Wait until Phone Number label is visible
 WebDriverWait(driver, 30).until(
@@ -212,6 +212,7 @@ WebDriverWait(driver, 30).until(
 print("Email Verification screen opened")
 time.sleep(3)
 
+#Since we cannot access the real OTP, we will mock the OTP entry
 # Dummy OTP (mocked – backend validation not accessible)
 mock_otp = "123456"
 
@@ -251,12 +252,6 @@ WebDriverWait(driver, 15).until(
 )
 
 print("OTP validation tested successfully (Invalid OTP shown as expected)")
-
-# End test gracefully
-time.sleep(4)
-driver.quit()
-
-
 
 # Final slow wait so you can see next page
 time.sleep(6)
